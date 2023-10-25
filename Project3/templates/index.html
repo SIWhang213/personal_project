@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Project 3- Group 2 - Light Pollution Map </title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin="" />
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+</head>
+
+<body>
+
+<!-- Star animation -->
+  <div class="main"></div>
+
+  <!-- State Selection -->
+  <section id="states">  
+
+    <h2>Use the interactive tools below to explore the best spots to see the night sky!</h2>
+    
+    <h3>Select a State</h3>
+    <select id="selState" onchange="onStateSelectChange(this.value)">
+      <option value="AL">Alabama</option>
+      <option value="AK">Alaska</option>
+      <option value="AZ">Arizona</option>
+      <option value="AR">Arkansas</option>
+      <option value="CA">California</option>
+      <option value="CO">Colorado</option>
+      <option value="CT">Connecticut</option>
+      <option value="DE">Delaware</option>
+      <option value="DC">District Of Columbia</option>
+      <option value="FL">Florida</option>
+      <option value="GA">Georgia</option>
+      <option value="HI">Hawaii</option>
+      <option value="ID">Idaho</option>
+      <option value="IL">Illinois</option>
+      <option value="IN">Indiana</option>
+      <option value="IA">Iowa</option>
+      <option value="KS">Kansas</option>
+      <option value="KY">Kentucky</option>
+      <option value="LA">Louisiana</option>
+      <option value="ME">Maine</option>
+      <option value="MD">Maryland</option>
+      <option value="MA">Massachusetts</option>
+      <option value="MI">Michigan</option>
+      <option value="MN">Minnesota</option>
+      <option value="MS">Mississippi</option>
+      <option value="MO">Missouri</option>
+      <option value="MT">Montana</option>
+      <option value="NE">Nebraska</option>
+      <option value="NV">Nevada</option>
+      <option value="NH">New Hampshire</option>
+      <option value="NJ">New Jersey</option>
+      <option value="NM">New Mexico</option>
+      <option value="NY">New York</option>
+      <option value="NC">North Carolina</option>
+      <option value="ND">North Dakota</option>
+      <option value="OH">Ohio</option>
+      <option value="OK">Oklahoma</option>
+      <option value="OR">Oregon</option>
+      <option value="PA">Pennsylvania</option>
+      <option value="RI">Rhode Island</option>
+      <option value="SC">South Carolina</option>
+      <option value="SD">South Dakota</option>
+      <option value="TN">Tennessee</option>
+      <option value="TX">Texas</option>
+      <option value="UT">Utah</option>
+      <option value="VT">Vermont</option>
+      <option value="VA">Virginia</option>
+      <option value="WA">Washington</option>
+      <option value="WV">West Virginia</option>
+      <option value="WI">Wisconsin</option>
+      <option value="WY">Wyoming</option>
+    </select>
+    <br>  <br>
+  </section>
+
+
+  <!-- The div that holds our map -->
+  <div id="map"></div>
+
+  <br>  <br>
+  <br>  <br>
+
+  
+   <!-- Moon phases section -->
+  <section id="moon">
+    <h2>Check below to see the best times to go!</h2>
+
+    <table class="moontable">
+        <tr id="moonheaders"></tr>
+        <tr id="moondata"></tr>
+        <tr id="moondrawing"></tr>
+    </table>
+    
+    <div></div>
+    
+  <br>  <br>
+  <br>  <br>
+  <br>  <br>
+  <br>  <br>
+  <br>  <br>  
+
+  </section>
+
+  <!-- Make table of moon and cloud condition for 10 days from today -->
+  <!-- Highlight when moon illumination <=10 and cloud cover <= 10 -->
+  <div class="tables-container">
+    <div class="table-container">
+  <section id="moonWeatherSection"> 
+    <h2 class="moon-header">  </h2>
+    <table class="moonWeathertable">
+      <thead id="tableHeaders">   
+      </thead>
+      <tbody id="moonDataBody"></tbody>
+    </table>
+</section> 
+</div>
+
+<div class="table-container">
+  <section id="staySection"> 
+    <h2 class="stay-header">  </h2>
+    <table class="staytable">
+      <thead id="stayHeaders">   
+        <tr> 
+        </tr>
+      </thead>
+      <tbody id="stayDataBody"></tbody>
+    </table>
+</section> 
+<br>  <br>  
+<br>  <br>
+</div>
+</div>
+
+<br>  <br>
+<br>  <br>
+
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <br>  <br>
+  <br>  <br> 
+<div id="resources">
+  <h1><u>How to find good places to stargaze</u></h1><br>
+
+  <h1>NELM and The Bortle Scale</h1><br>
+    
+  <h2 id="info">There are many ways in which we can measure conditions of the nightsky and 
+    how to pick the best spot. 
+    Some of the tools we have are: </h2><br>
+  <p>NELM: Naked-Eye Limiting Magnitude which is the apparent magnitude of the faintest stars 
+    that can be seen with the naked eye.</p><br>
+  <p>We also use the Bortle Scale which is a 9-level numeric scale used to describe the darkness 
+    of the night sky. Class 1 would be no light pollution at all: the darkest sky. Class 9 would be 
+    an  Inner City sky, with very little visibility. </p><br><br>
+  
+  <h1 id="info2">The best spots - Location Location Location.</h1><br><br>
+  <p>You want to find a spot at least 30 miles from the biggest city; ideally even further, 
+    where there is very little light pollution, no clouds, fog, moisture, haze, etc. 
+    The higher the altitude the better in order to circumvent these obstacles.</p><br>
+  <p>Check the weather for cloudy conditions, preciptiation and visibility. 
+    Also plan for a time 2 weeks before or after the new moon.  </p><br>
+  <p>The best time to observe the stars, with regard to the Moon's brightness, 
+    is the two weeks before and after the new moon phase. On these evenings the Moon is either absent 
+    from the sky all night, or sets within a couple of hours after sunset, or doesn't rise until 
+    the pre-dawn hours.</p><br>
+  <p>If you're really passionate about stargazing, you can get a sky quality meter to measure
+     the brightness of the night sky; then submit that data to Globe at Night. 
+     This information will help us better understand our evolving night sky conditions 
+     and how we can make changes to enhance the aesthetics of the night sky for viewing pleasures ✨</p><br>
+
+
+
+</div>
+
+  <!-- Chart.js JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+
+  <!-- Leaflet Heatmap plugin-->
+  <script type="text/javascript" src="static/js/leaflet-heat.js"></script>
+
+  <!-- D3 JavaScript -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <!-- Our JavaScript -->
+  <script type="text/javascript" src="static/js/logic.js"></script>
+  <!-- <script type="text/javascript" src="static/js/logic_table.js"></script> -->
+  <script type="text/javascript" src="static/js/api_keys.js"></script>
+
+</body>
+
+<!-- Moon Shadow Library Call -->
+<script src="static/js/planet_phase.js"></script>
+
+</html>

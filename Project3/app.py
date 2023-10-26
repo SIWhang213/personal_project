@@ -5,7 +5,7 @@ import datetime as dt
 import pandas as pd
 import json
 # pip install -U flask-cors
-from api_keys import geoapify_key
+from config import geoapify_key
 
 app = Flask(__name__)
 CORS(app)
@@ -58,8 +58,8 @@ def weather_data(selected_location):
     # input our own id and pwd for https://api.meteomatics.com
     #username = 'YOUR ID'
     #password = 'YOUR PASSWORD'
-    username= 'upenn_whang_si'
-    password= '6EXl0d7fjB'
+    username= 'personsl_son_jungje'
+    password= '1U4yQdor8E'
 
 
     level = "total"

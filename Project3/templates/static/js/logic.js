@@ -50,27 +50,11 @@ function createLayers(response) {
           oldStayMarkerGroup = stayMarkerGroup
           stayMarkerGroup.addTo(map);
           stayMarkerLayer = [];
-         // updata moon and cloud for selected dark place 
-         console.log('test10');
-        fetch('http://localhost:5000/api/v1.0/moon-weather-data', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-          },
-          body: JSON.stringify([lat, lon])
-        })
-        .then(response=> response.json())
-        .then(moon_weather_data => {
-          // do stuff with moon_weather data
-          const jsonData = JSON.parse(moon_weather_data);
-          createMoonWeatherDataTable(jsonData)
         })
         .catch(error => console.error('Error:', error));
-      })
-    }
+      });
+    };
   };
-  
-
 
 
   //Control for layers 
